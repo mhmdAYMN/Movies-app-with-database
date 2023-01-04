@@ -1,0 +1,61 @@
+﻿@model FilmsModelsViews
+<h2 class="text-primary">Details</h2>
+<hr />
+<section class="row   justify-content-between">
+    <div class="col-md-4">
+        <form>
+            <div asp-validation-summary="ModelOnly" class=“text-danger”></div>
+            @* Title  *@
+            <div class="form-group">
+                <label class="text-muted" asp-for="Title"></label>
+                <input disabled type="text" class="form-control" asp-for="Title" maxlength="250" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+
+            </div>
+            @* CategID  *@
+            <div class="form-group">
+                <label class="text-muted" asp-for="Categoffilm.Name"></label>
+                <input disabled type="text" class="form-control" asp-for="Categoffilm.Name" />
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            @* Year  *@
+            <div class="form-group w-50">
+                <label class="text-muted" asp-for="Year"></label>
+                <input disabled type="text" class="form-control" asp-for="Year" value="@(Model.Year > 0 ? Model.Year : "")" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+
+            </div>
+            @* Rate  *@
+            <div class="form-group w-50">
+                <label class="text-muted" asp-for="Rate"></label>
+                <input disabled type="text" class="form-control" asp-for="Rate" value="@(Model.Rate > 0 ? Model.Rate : "")" />
+                <span asp-validation-for="Rate" class="text-danger"></span>
+            </div>
+            @* story*@
+            <div class="form-group ">
+                <label class="text-muted" asp-for="Story"></label>
+                <textarea disabled class="form-control" asp-for="Story" maxlength="2000"></textarea>
+                <span asp-validation-for="Story" class="text-danger"></span>
+            </div>
+           
+
+            
+            <a asp-action="Index" class="btn btn-outline-secondary mt-4">
+                <i class="bi bi-x"></i>
+                Cancel
+            </a>
+        </form>
+
+    </div>
+    <div class="col-md-4 ">
+        <div id="poster-container">
+            <img src="data:image\/*;base64,@(Convert.ToBase64String(Model.Poster))" alt="POSTER" class="img-thumbnail" />
+        </div>
+
+    </div>
+
+
+
+</section>
+
+

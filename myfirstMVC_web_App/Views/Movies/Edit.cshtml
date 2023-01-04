@@ -1,0 +1,103 @@
+﻿@model FilmsModelsViews
+<h2 class="text-primary">Edit Movie </h2>
+<hr />
+<section class="row   justify-content-between">
+    <div class="col-md-4">
+        <form method="post" asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class=“text-danger”></div>
+            @* Title  *@
+            <div class="form-group">
+                <label class="text-muted" asp-for="Title"></label>
+                <input type="text" class="form-control" asp-for="Title" maxlength="250" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+
+            </div>
+            @* CategID  *@
+            <div class="form-group">
+                <label class="text-muted" asp-for="CategoryId"></label>
+                <select class="form-control" asp-for="CategoryId" asp-items="@(new SelectList(Model.Categs,"Id","Name"))">
+                    <option></option>
+
+
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            @* Year  *@
+            <div class="form-group w-50">
+                <label class="text-muted" asp-for="Year"></label>
+                <input type="text" class="form-control" asp-for="Year" value="@(Model.Year > 0 ? Model.Year : "")" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+
+            </div>
+            @* Rate  *@
+            <div class="form-group w-50">
+                <label class="text-muted" asp-for="Rate"></label>
+                <input type="text" class="form-control" asp-for="Rate" value="@(Model.Rate > 0 ? Model.Rate : "")" />
+                <span asp-validation-for="Rate" class="text-danger"></span>
+            </div>
+            @* story*@
+            <div class="form-group ">
+                <label class="text-muted" asp-for="Story"></label>
+                <textarea class="form-control" asp-for="Story" maxlength="2000"></textarea>
+                <span asp-validation-for="Story" class="text-danger"></span>
+            </div>
+            @*poster*@
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" asp-for="Poster" accept=".png,.jpg" />
+                <label id="a7a" class="custom-file-label" asp-for="Poster"></label>
+                <span asp-validation-for="Poster" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-4">
+                <i class="bi bi-check"></i>
+                Save!
+            </button>
+            <a asp-action="Index" class="btn btn-outline-secondary mt-4">
+                <i class="bi bi-x"></i>
+                Cancel
+            </a>
+        </form>
+
+    </div>
+    <div class="col-md-4 ">
+        <div id="poster-container">
+            <img src="data:image\/*;base64,@(Convert.ToBase64String(Model.Poster))" alt="POSTER" class="img-thumbnail" />
+        </div>
+
+    </div>
+
+
+
+</section>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+
+
+            $('#Poster').on('change', function () {
+                var selectedfile = $(this).val().split('\\').pop();
+                $('#a7a').text(selectedfile);
+                var container = $('#poster-container');
+                var image = window.URL.createObjectURL(this.files[0]);
+                container.find('img').attr('src', image);
+
+
+            }
+            );
+
+
+
+
+
+
+        });
+
+
+
+    </script>
+
+}
